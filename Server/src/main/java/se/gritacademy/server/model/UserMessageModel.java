@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserMessage {
+public class UserMessageModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,6 @@ public class UserMessage {
     private UserModel user;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "messageId")
+    @JoinColumn(name = "message_id")
     private MessageModel message;
 }

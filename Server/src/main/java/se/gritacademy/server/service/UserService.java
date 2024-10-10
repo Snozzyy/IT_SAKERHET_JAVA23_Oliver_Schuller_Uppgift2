@@ -1,11 +1,14 @@
 package se.gritacademy.server.service;
 
+import com.nimbusds.jose.JOSEException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import se.gritacademy.server.model.UserModel;
 import se.gritacademy.server.repository.UserRepository;
+import se.gritacademy.server.security.Auth;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -23,7 +26,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public UserModel findByEmailAndPassword(String email, String password){
-        return userRepository.findByEmailAndPassword(email, password);
+    public String findByEmailAndPassword(String email, String password) throws JOSEException, ParseException {
+
+        UserModel userModel = userRepository.findByEmailAndPassword(email, password);
+
+        if (userModel != null) {
+            return Auth.generateJWT(userModel.getId());
+        } else {
+            // Error
+            return "No user found";
+        }
     }
 }

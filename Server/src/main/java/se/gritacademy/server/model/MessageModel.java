@@ -15,7 +15,7 @@ import lombok.Setter;
 public class MessageModel {
 
     @Id
-    @Column(name = "messageId")
+    @Column(name = "message_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long messageId;
 
@@ -23,5 +23,5 @@ public class MessageModel {
     String message;
 
     @OneToOne(mappedBy = "message")
-    private UserMessage userMessage;
+    private UserMessageModel userMessageModel;
 }

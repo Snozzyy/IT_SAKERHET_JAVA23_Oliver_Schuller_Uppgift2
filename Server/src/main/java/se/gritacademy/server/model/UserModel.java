@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "user")
@@ -29,6 +28,6 @@ public class UserModel {
     String password;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserMessage> userMessages;
+    private Set<UserMessageModel> userMessageModels;
 
 }
