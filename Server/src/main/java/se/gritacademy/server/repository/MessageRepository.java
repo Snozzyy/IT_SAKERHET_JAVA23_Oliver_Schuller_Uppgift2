@@ -13,7 +13,7 @@ public interface MessageRepository extends JpaRepository<MessageModel, Long> {
     @Query(value = "SELECT m.message_content FROM message m " +
             "JOIN user_message um ON m.message_id = um.message_id " +
             "JOIN user u ON um.user_id = u.user_id " +
-            "WHERE u.email = :email AND u.password = :password", nativeQuery = true)
-    List<String> findByEmailAndPassword(String email, String password);
+            "WHERE u.user_id = :id", nativeQuery = true)
+    List<String> findByUserId(Long id);
 }
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import se.gritacademy.server.model.UserModel;
 import se.gritacademy.server.repository.UserRepository;
 import se.gritacademy.server.security.Auth;
+import se.gritacademy.server.security.Hashing;
 
 import java.text.ParseException;
 import java.util.HashMap;
@@ -21,14 +22,14 @@ public class UserService {
     public UserModel saveUser(String email, String password) {
         UserModel user = new UserModel();
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(Hashing.hashPassword(password));
 
         return userRepository.save(user);
     }
 
     public String findByEmailAndPassword(String email, String password) throws JOSEException, ParseException {
 
-        UserModel userModel = userRepository.findByEmailAndPassword(email, password);
+        UserModel userModel = userRepository.findByEmailAndPassword(email, Hashing.hashPassword(password));
 
         if (userModel != null) {
             return Auth.generateJWT(userModel.getId());
