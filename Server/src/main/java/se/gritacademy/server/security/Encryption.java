@@ -17,6 +17,7 @@ public class Encryption {
     }
 
     public static String encryptMessage(String message, SecretKey aesKey) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        System.out.println(message);
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, aesKey);
         byte[] encryptedBytes = cipher.doFinal(message.getBytes());
@@ -26,6 +27,7 @@ public class Encryption {
 
     public static String decryptMessage(String message, String key) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         // Change key back to SecretKey
+        System.out.println(key);
         byte[] decodedKey = Base64.getDecoder().decode(key);
         SecretKey aesKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 
